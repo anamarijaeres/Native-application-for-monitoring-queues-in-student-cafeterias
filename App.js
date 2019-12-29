@@ -7,25 +7,25 @@ import { Ionicons } from "@expo/vector-icons";
 
 import AppNavigator from "./navigation/AppNavigator";
 
-import * as firebase from "firebase";
+// import * as firebase from "firebase";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDQqBAW6AE6rpobF9LZ3zoU_4RxKrwcBQU",
-  authDomain: "lad4-ecbd7.firebaseapp.com",
-  databaseURL: "https://lad4-ecbd7.firebaseio.com",
-  projectId: "lad4-ecbd7",
-  storageBucket: "lad4-ecbd7.appspot.com",
-  messagingSenderId: "876341894223",
-  appId: "1:876341894223:web:8ae9525b2db61e68c5de3a",
-  measurementId: "G-TJVM03NNL0"
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDQqBAW6AE6rpobF9LZ3zoU_4RxKrwcBQU",
+//   authDomain: "lad4-ecbd7.firebaseapp.com",
+//   databaseURL: "https://lad4-ecbd7.firebaseio.com",
+//   projectId: "lad4-ecbd7",
+//   storageBucket: "lad4-ecbd7.appspot.com",
+//   messagingSenderId: "876341894223",
+//   appId: "1:876341894223:web:8ae9525b2db61e68c5de3a",
+//   measurementId: "G-TJVM03NNL0"
+// };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// // Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
 
-var database = firebase.database();
+// var database = firebase.database();
 
-console.log(database);
+// console.log(database);
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);

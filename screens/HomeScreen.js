@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
   Platform,
@@ -7,67 +7,234 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Button
 } from "react-native";
 
 import { MonoText } from "../components/StyledText";
 
+import * as firebase from "firebase";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDQqBAW6AE6rpobF9LZ3zoU_4RxKrwcBQU",
+  authDomain: "lad4-ecbd7.firebaseapp.com",
+  databaseURL: "https://lad4-ecbd7.firebaseio.com",
+  projectId: "lad4-ecbd7",
+  storageBucket: "lad4-ecbd7.appspot.com",
+  messagingSenderId: "876341894223",
+  appId: "1:876341894223:web:8ae9525b2db61e68c5de3a",
+  measurementId: "G-TJVM03NNL0"
+};
+
+// Initialize Firebase
+if (firebase.apps.length !== 1) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+var database = firebase.database();
+
+var menza_data = [];
 export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
-        <View style={styles.welcomeContainer}>
-          <Image
-            style={styles.welcomeImage}
-            source={require("../assets/images/LAD.jpg")}
-          />
-        </View>
+  const [buttonPressed, setButtonPressed] = useState(false);
+  const [imeMenze, setImeMenze] = useState(null);
 
-        <View style={styles.getStartedContainer}>
-          {/* <DevelopmentModeNotice /> */}
+  // for (var i = 0; i < 8; i++) {
+  //   firebase
+  //     .database()
+  //     .ref("menze/" + i)
+  //     .once("value")
+  //     .then(function(snapshot) {
+  //       menza_data[i] = snapshot.val();
+  //       console.log(menza_data[i].name);
+  //     });
+  // }
 
-          <Text style={styles.getStartedText}>
-            OVO JE NAJBOLJI PROJEKT ...IKAD!
+  function gumbPritisnut(ime, zaPostaviti) {
+    setImeMenze(ime);
+    setButtonPressed(zaPostaviti);
+  }
+
+  function ugasiGumb(zaPostaviti) {
+    console.log("Sad smo u " + imeMenze + " menzi!");
+    setButtonPressed(zaPostaviti);
+  }
+
+  function ImenaMenzi() {
+    var output = [];
+    for (var i = 1; i < 9; i++) {
+      firebase
+        .database()
+        .ref("menze/" + i)
+        .once("value")
+        .then(function(snapshot) {
+          menza_data = snapshot.val();
+          var tempItem = (
+            <View>
+              <Button
+                title={menza_data.name}
+                onPress={() => gumbPritisnut(menza_data.name, true)}
+              />
+            </View>
+          );
+          output.push(tempItem);
+        });
+    }
+    return <View>{output}</View>;
+  }
+
+  // function imenaMenzi() {
+  //   var output = [];
+  //   for (var i = 0; i < 8; i++) {
+  //     firebase
+  //       .database()
+  //       .ref("menze/" + i)
+  //       .once("value")
+  //       .then(function(snapshot) {
+  //         menza_data[i] = snapshot.val();
+  //         var tempItem = (
+  //           <View>
+  //             <Button
+  //               title={menza_data[i].name}
+  //               onPress={() => gumbPritisnut(menza_data[i].name, true)}
+  //             />
+  //           </View>
+  //         );
+  //         output[i] = tempItem;
+  //       });
+  //   }
+  //   return <View>{output}</View>;
+  // }
+
+  if (!buttonPressed) {
+    return (
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
+          <View style={styles.welcomeContainer}>
+            <Image
+              style={styles.welcomeImage}
+              source={require("../assets/images/LAD.jpg")}
+            />
+          </View>
+
+          <View style={styles.getStartedContainer}>
+            {/* <DevelopmentModeNotice /> */}
+
+            <Text style={styles.getStartedText}>
+              OVO JE NAJBOLJI PROJEKT ...IKAD!
+            </Text>
+
+            <View
+              style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+            >
+              <MonoText>screens/HomeScreen.js</MonoText>
+            </View>
+          </View>
+
+          <View style={styles.helpContainer}>
+            <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+              <Text style={styles.helpLinkText}>
+                Help, it didn’t automatically reload!
+              </Text>
+            </TouchableOpacity>
+
+            <View style={{ paddingBottom: 15 }}>
+              <Button title="FER" onPress={() => gumbPritisnut("FER", true)} />
+            </View>
+
+            <View style={{ paddingBottom: 15 }}>
+              <Button title="FSB" onPress={() => gumbPritisnut("FSB", true)} />
+            </View>
+
+            <View style={{ paddingBottom: 15 }}>
+              <Button
+                title="FFZG"
+                onPress={() => gumbPritisnut("FFZG", true)}
+              />
+            </View>
+
+            <View style={{ paddingBottom: 15 }}>
+              <Button title="SC" onPress={() => gumbPritisnut("SC", true)} />
+            </View>
+
+            <View style={{ paddingBottom: 15 }}>
+              <Button
+                title="GRAĐEVINA"
+                onPress={() => gumbPritisnut("GRAĐEVINA", true)}
+              />
+            </View>
+
+            <View style={{ paddingBottom: 15 }}>
+              <Button
+                title="CVJETNO"
+                onPress={() => gumbPritisnut("CVJETNO", true)}
+              />
+            </View>
+
+            <View style={{ paddingBottom: 15 }}>
+              <Button
+                title="EKONOMIJA"
+                onPress={() => gumbPritisnut("EKONOMIJA", true)}
+              />
+            </View>
+
+            <View style={{ paddingBottom: 15 }}>
+              <Button
+                title="STJEPAN RADIĆ"
+                onPress={() => gumbPritisnut("STJEPAN RADIĆ", true)}
+              />
+            </View>
+          </View>
+        </ScrollView>
+
+        {/* <View style={styles.tabBarInfoContainer}>
+          <Text style={styles.tabBarInfoText}>
+            This is a tab bar. You can edit it in:
           </Text>
 
           <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+            style={[styles.codeHighlightContainer, styles.navigationFilename]}
           >
-            <MonoText>screens/HomeScreen.js</MonoText>
+            <MonoText style={styles.codeHighlightText}>
+              navigation/MainTabNavigator.js
+            </MonoText>
+          </View>
+        </View> */}
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
+          <Text style={styles.nameOfMensah}>{imeMenze}</Text>
+
+          <View style={styles.welcomeContainer}>
+            <Image
+              style={styles.welcomeImage}
+              source={require("../assets/images/LAD.jpg")}
+            />
           </View>
 
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload.
-          </Text>
-        </View>
+          <View style={styles.welcomeContainer}>
+            <Button title="START" onPress={() => console.log("počeli smo")} />
+          </View>
 
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+          <View style={styles.welcomeContainer}>
+            <Button title="END" onPress={() => ugasiGumb(false)} />
+          </View>
+        </ScrollView>
 
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}
-        >
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
+        <View style={styles.returnContainer}>
+          <Button title="Vrati se" onPress={() => ugasiGumb(false)} />
         </View>
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 HomeScreen.navigationOptions = {
@@ -132,9 +299,7 @@ const styles = StyleSheet.create({
   welcomeImage: {
     width: 100,
     height: 80,
-    resizeMode: "contain",
-    marginTop: 3,
-    marginLeft: -10
+    resizeMode: "contain"
   },
   getStartedContainer: {
     alignItems: "center",
@@ -195,5 +360,23 @@ const styles = StyleSheet.create({
   helpLinkText: {
     fontSize: 14,
     color: "#2e78b7"
+  },
+  nameOfMensah: {
+    fontSize: 42,
+    alignSelf: "center",
+    color: "#2e78b7"
+  },
+  returnContainer: {
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 20
+  },
+  startAndEndButtons: {
+    width: 100,
+    height: 100,
+    alignItems: "center",
+    alignSelf: "center",
+    marginTop: 50,
+    backgroundColor: "#fff"
   }
 });
