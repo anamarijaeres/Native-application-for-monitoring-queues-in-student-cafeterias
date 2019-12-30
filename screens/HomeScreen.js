@@ -37,7 +37,11 @@ var menza_data = [];
 export default function HomeScreen() {
   const [buttonPressed, setButtonPressed] = useState(false);
   const [buttonZaUlazak, setButtonZaUlazak] = useState(false);
+
+  //Ove 3 vrijednosti postavi na null kad se stisne End
   const [imeMenze, setImeMenze] = useState(null);
+  const [idMenze, setIdMenze] = useState(null);
+  const [startTime, setStartTime] = useState(null);
 
   // for (var i = 0; i < 8; i++) {
   //   firebase
@@ -50,7 +54,8 @@ export default function HomeScreen() {
   //     });
   // }
 
-  function gumbPritisnut(ime, zaPostaviti) {
+  function gumbPritisnut(ime, zaPostaviti, idMenze) {
+    setIdMenze(idMenze);
     setImeMenze(ime);
     setButtonPressed(zaPostaviti);
   }
@@ -63,11 +68,43 @@ export default function HomeScreen() {
 
   function ulazakUMenzu() {
     setButtonZaUlazak(true);
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    var date = hours + ":" + min + ":" + sec;
+    setStartTime(date);
   }
 
   function izlazakIzMenze(zaPostaviti) {
-    setButtonZaUlazak(false);
-    setButtonPressed(zaPostaviti);
+    const newId = firebase
+      .database()
+      .ref("menze/" + idMenze + "/data")
+      .once("value")
+      .then(function(snapshot) {
+        var data = snapshot.val();
+        return data.length;
+      })
+      .then(function(noviId) {
+        firebase
+          .database()
+          .ref("menze/" + idMenze + "/data/" + noviId)
+          .set({
+            dow: new Date().getDay(),
+            endTime:
+              new Date().getHours() +
+              ":" +
+              new Date().getMinutes() +
+              ":" +
+              new Date().getSeconds(),
+            startTime: startTime
+          });
+      })
+      .finally(() => {
+        setButtonZaUlazak(false);
+        setButtonPressed(zaPostaviti);
+      });
+
+    console.log(newId);
   }
 
   function ImenaMenzi() {
@@ -152,49 +189,55 @@ export default function HomeScreen() {
             </TouchableOpacity>
 
             <View style={styles.collegeButtons}>
-              <Button title="FER" onPress={() => gumbPritisnut("FER", true)} />
+              <Button
+                title="FER"
+                onPress={() => gumbPritisnut("FER", true, 1)}
+              />
             </View>
 
             <View style={styles.collegeButtons}>
-              <Button title="FSB" onPress={() => gumbPritisnut("FSB", true)} />
+              <Button
+                title="FSB"
+                onPress={() => gumbPritisnut("FSB", true, 2)}
+              />
             </View>
 
             <View style={styles.collegeButtons}>
               <Button
                 title="FFZG"
-                onPress={() => gumbPritisnut("FFZG", true)}
+                onPress={() => gumbPritisnut("FFZG", true, 3)}
               />
             </View>
 
             <View style={styles.collegeButtons}>
-              <Button title="SC" onPress={() => gumbPritisnut("SC", true)} />
+              <Button title="SC" onPress={() => gumbPritisnut("SC", true, 4)} />
             </View>
 
             <View style={styles.collegeButtons}>
               <Button
                 title="GRAĐEVINA"
-                onPress={() => gumbPritisnut("GRAĐEVINA", true)}
+                onPress={() => gumbPritisnut("GRAĐEVINA", true, 5)}
               />
             </View>
 
             <View style={styles.collegeButtons}>
               <Button
                 title="CVJETNO"
-                onPress={() => gumbPritisnut("CVJETNO", true)}
+                onPress={() => gumbPritisnut("CVJETNO", true, 6)}
               />
             </View>
 
             <View style={styles.collegeButtons}>
               <Button
                 title="EKONOMIJA"
-                onPress={() => gumbPritisnut("EKONOMIJA", true)}
+                onPress={() => gumbPritisnut("EKONOMIJA", true, 7)}
               />
             </View>
 
             <View style={styles.collegeButtons}>
               <Button
                 title="STJEPAN RADIĆ"
-                onPress={() => gumbPritisnut("STJEPAN RADIĆ", true)}
+                onPress={() => gumbPritisnut("STJEPAN RADIĆ", true, 8)}
               />
             </View>
           </View>
