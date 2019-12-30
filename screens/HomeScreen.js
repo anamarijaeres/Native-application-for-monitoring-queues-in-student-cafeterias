@@ -36,6 +36,7 @@ var database = firebase.database();
 var menza_data = [];
 export default function HomeScreen() {
   const [buttonPressed, setButtonPressed] = useState(false);
+  const [buttonZaUlazak, setButtonZaUlazak] = useState(false);
   const [imeMenze, setImeMenze] = useState(null);
 
   // for (var i = 0; i < 8; i++) {
@@ -56,6 +57,16 @@ export default function HomeScreen() {
 
   function ugasiGumb(zaPostaviti) {
     console.log("Sad smo u " + imeMenze + " menzi!");
+    setButtonZaUlazak(false);
+    setButtonPressed(zaPostaviti);
+  }
+
+  function ulazakUMenzu() {
+    setButtonZaUlazak(true);
+  }
+
+  function izlazakIzMenze(zaPostaviti) {
+    setButtonZaUlazak(false);
     setButtonPressed(zaPostaviti);
   }
 
@@ -140,47 +151,47 @@ export default function HomeScreen() {
               </Text>
             </TouchableOpacity>
 
-            <View style={{ paddingBottom: 15 }}>
+            <View style={styles.collegeButtons}>
               <Button title="FER" onPress={() => gumbPritisnut("FER", true)} />
             </View>
 
-            <View style={{ paddingBottom: 15 }}>
+            <View style={styles.collegeButtons}>
               <Button title="FSB" onPress={() => gumbPritisnut("FSB", true)} />
             </View>
 
-            <View style={{ paddingBottom: 15 }}>
+            <View style={styles.collegeButtons}>
               <Button
                 title="FFZG"
                 onPress={() => gumbPritisnut("FFZG", true)}
               />
             </View>
 
-            <View style={{ paddingBottom: 15 }}>
+            <View style={styles.collegeButtons}>
               <Button title="SC" onPress={() => gumbPritisnut("SC", true)} />
             </View>
 
-            <View style={{ paddingBottom: 15 }}>
+            <View style={styles.collegeButtons}>
               <Button
                 title="GRAĐEVINA"
                 onPress={() => gumbPritisnut("GRAĐEVINA", true)}
               />
             </View>
 
-            <View style={{ paddingBottom: 15 }}>
+            <View style={styles.collegeButtons}>
               <Button
                 title="CVJETNO"
                 onPress={() => gumbPritisnut("CVJETNO", true)}
               />
             </View>
 
-            <View style={{ paddingBottom: 15 }}>
+            <View style={styles.collegeButtons}>
               <Button
                 title="EKONOMIJA"
                 onPress={() => gumbPritisnut("EKONOMIJA", true)}
               />
             </View>
 
-            <View style={{ paddingBottom: 15 }}>
+            <View style={styles.collegeButtons}>
               <Button
                 title="STJEPAN RADIĆ"
                 onPress={() => gumbPritisnut("STJEPAN RADIĆ", true)}
@@ -221,11 +232,19 @@ export default function HomeScreen() {
           </View>
 
           <View style={styles.welcomeContainer}>
-            <Button title="START" onPress={() => console.log("počeli smo")} />
+            <Button
+              title="START"
+              onPress={() => ulazakUMenzu()}
+              disabled={buttonZaUlazak}
+            />
           </View>
 
           <View style={styles.welcomeContainer}>
-            <Button title="END" onPress={() => ugasiGumb(false)} />
+            <Button
+              title="END"
+              onPress={() => izlazakIzMenze(false)}
+              disabled={!buttonZaUlazak}
+            />
           </View>
         </ScrollView>
 
@@ -378,5 +397,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 50,
     backgroundColor: "#fff"
+  },
+  collegeButtons: {
+    paddingBottom: 15
   }
 });
