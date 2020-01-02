@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import MenzaScreen from "../screens/MenzaScreen";
-//import SettingsScreen from "../screens/SettingsScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -55,26 +55,29 @@ LinksStack.navigationOptions = {
 
 LinksStack.path = "";
 
-// const SettingsStack = createStackNavigator(
-//   {
-//     Settings: SettingsScreen,
-//   },
-//   config
-// );
+const SettingsStack = createStackNavigator(
+  {
+    Settings: SettingsScreen
+  },
+  config
+);
 
-// SettingsStack.navigationOptions = {
-//   tabBarLabel: 'Settings',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-//   ),
-// };
+SettingsStack.navigationOptions = {
+  tabBarLabel: "Gužva",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-hourglass" : "md-hourglass"}
+    />
+  )
+};
 
-// SettingsStack.path = '';
+SettingsStack.path = "";
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack
-  //SettingsStack,
+  LinksStack,
+  SettingsStack
 });
 
 tabNavigator.path = "";
