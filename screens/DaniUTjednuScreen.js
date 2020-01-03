@@ -31,7 +31,7 @@ if (firebase.apps.length !== 1) {
 
 var podaciMenza = [];
 var podaciZaGraf = null;
-export default function SettingsScreen() {
+export default function DaniUTjednuScreen() {
   const [danUTjednu, setDanUTjednu] = useState(null);
   const [prikažiGraf, setPrikažiGraf] = useState(false);
 
@@ -194,7 +194,7 @@ export default function SettingsScreen() {
   }
 }
 
-SettingsScreen.navigationOptions = {
+DaniUTjednuScreen.navigationOptions = {
   title: "Dani u tjednu"
 };
 

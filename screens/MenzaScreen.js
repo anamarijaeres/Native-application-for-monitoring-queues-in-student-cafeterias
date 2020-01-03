@@ -1,26 +1,59 @@
 import React from "react";
-import { ScrollView, StyleSheet, View, Image, Text } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  FlatList
+} from "react-native";
 //import { ExpoLinksView } from "@expo/samples";
 
 export default function MenzaScreen() {
   return (
     <ScrollView style={styles.container}>
-      {
-        <View>
-          <View style={styles.container}>
-            <Image source={require("./../assets/images/SC-menza.jpg")} />
+      <View style={styles.menzaPosition}>
+        <Image source={require("./../assets/images/FER-menza.png")} />
 
-            <View>
-              <Text style={styles.menzaText}>Ovo je tekst!</Text>
-            </View>
-          </View>
-          <View style={styles.container}>
-            <Image
-              source={require("./../assets/images/StjepanRadic-menza.jpg")}
-            />
-          </View>
-        </View>
-      }
+        <FlatList
+          style={styles.menzaText}
+          data={[
+            { key: "FER" },
+            { key: "RADNO VRIJEME:" },
+            { key: "PON-PET: 10-16h" },
+            { key: "SUB i NED: zatvoreno" }
+          ]}
+          renderItem={({ item }) => <Text>{item.key}</Text>}
+        />
+      </View>
+      <View style={styles.menzaPosition}>
+        <Image source={require("./../assets/images/SC-menza.jpg")} />
+
+        <FlatList
+          style={styles.menzaText}
+          data={[
+            { key: "SC" },
+            { key: "RADNO VRIJEME:" },
+            { key: "PON-PET: 10-16h" },
+            { key: "SUB i NED: zatvoreno" }
+          ]}
+          renderItem={({ item }) => <Text>{item.key}</Text>}
+        />
+      </View>
+      <View style={styles.menzaPosition}>
+        <Image source={require("./../assets/images/StjepanRadic-menza.jpg")} />
+
+        <FlatList
+          style={styles.menzaText}
+          data={[
+            { key: "SAVA" },
+            { key: "RADNO VRIJEME:" },
+            { key: "PON-PET: 10-16h" },
+            { key: "SUB i NED: zatvoreno" }
+          ]}
+          renderItem={({ item }) => <Text>{item.key}</Text>}
+        />
+      </View>
     </ScrollView>
   );
 }
@@ -35,7 +68,13 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: "#f2ddf8"
   },
+  menzaPosition: {
+    flex: 1,
+    flexDirection: "row",
+    padding: 15,
+    alignSelf: "flex-start"
+  },
   menzaText: {
-    textAlign: "right"
+    paddingLeft: 15
   }
 });

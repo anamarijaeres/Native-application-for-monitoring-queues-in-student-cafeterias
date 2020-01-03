@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import MenzaScreen from "../screens/MenzaScreen";
-import SettingsScreen from "../screens/SettingsScreen";
+import DaniUTjednuScreen from "../screens/DaniUTjednuScreen";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -57,7 +57,7 @@ LinksStack.path = "";
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: SettingsScreen
+    Settings: DaniUTjednuScreen
   },
   config
 );
