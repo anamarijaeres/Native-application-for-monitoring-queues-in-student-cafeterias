@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, View, Image } from "react-native";
+import { ScrollView, StyleSheet, View, Image, Text } from "react-native";
 //import { ExpoLinksView } from "@expo/samples";
 
 export default function MenzaScreen() {
@@ -9,6 +9,10 @@ export default function MenzaScreen() {
         <View>
           <View style={styles.container}>
             <Image source={require("./../assets/images/SC-menza.jpg")} />
+
+            <View>
+              <Text style={styles.menzaText}>Ovo je tekst!</Text>
+            </View>
           </View>
           <View style={styles.container}>
             <Image
@@ -29,6 +33,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
-    backgroundColor: "#fff"
+    backgroundColor: "#f2ddf8"
+  },
+  menzaText: {
+    textAlign: "right"
   }
 });

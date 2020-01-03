@@ -174,19 +174,19 @@ export default function HomeScreen() {
               OVO JE NAJBOLJI PROJEKT ...IKAD!
             </Text>
 
-            <View
+            {/* <View
               style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
             >
               <MonoText>screens/HomeScreen.js</MonoText>
-            </View>
+            </View> */}
           </View>
 
           <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+            {/* <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
               <Text style={styles.helpLinkText}>
                 Help, it didn’t automatically reload!
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <View style={styles.collegeButtons}>
               <Button
@@ -236,8 +236,8 @@ export default function HomeScreen() {
 
             <View style={styles.collegeButtons}>
               <Button
-                title="STJEPAN RADIĆ"
-                onPress={() => gumbPritisnut("STJEPAN RADIĆ", true, 8)}
+                title="SAVA"
+                onPress={() => gumbPritisnut("SAVA", true, 8)}
               />
             </View>
           </View>

@@ -100,7 +100,7 @@ export default function SettingsScreen() {
                 "GRAĐEVINA",
                 "CVJETNO",
                 "EKONOMIJA",
-                "STJEPAN RADIĆ"
+                "SAVA"
               ],
               datasets: [
                 {
@@ -160,13 +160,20 @@ export default function SettingsScreen() {
     );
   } else {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.containerGraph}>
         <View>
           <BarChart
+            style={{
+              transform: [
+                {
+                  rotate: "90deg"
+                }
+              ]
+            }}
             data={podaciZaGraf}
-            width={Dimensions.get("window").width}
-            height={220}
-            yAxisLabel={"min"}
+            width={Dimensions.get("window").height - 70}
+            height={Dimensions.get("window").width}
+            verticalLabelRotation={45}
             chartConfig={{
               backgroundColor: "#1cc910",
               backgroundGradientFrom: "#eff3ff",
@@ -178,9 +185,9 @@ export default function SettingsScreen() {
               }
             }}
           />
-        </View>
-        <View style={styles.helpContainer}>
-          <Button title="Vrati se" onPress={() => setPrikažiGraf(false)} />
+          <View style={styles.helpContainerReturnButton}>
+            <Button title="Vrati se" onPress={() => setPrikažiGraf(false)} />
+          </View>
         </View>
       </ScrollView>
     );
@@ -195,11 +202,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
-    backgroundColor: "#fff"
+    backgroundColor: "#f2ddf8"
+  },
+  containerGraph: {
+    flex: 1,
+    backgroundColor: "#f2ddf8"
   },
   helpContainer: {
     marginTop: 15,
     alignItems: "center"
+  },
+  helpContainerReturnButton: {
+    marginTop: 15,
+    alignItems: "center",
+    paddingTop: Dimensions.get("window").height - 450,
+    paddingBottom: 20
   },
   collegeButtons: {
     paddingBottom: 15
