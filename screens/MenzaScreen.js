@@ -13,6 +13,20 @@ export default function MenzaScreen() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.menzaPosition}>
+        <Image source={require("./../assets/images/Medicina-menza.jpg")} />
+
+        <FlatList
+          style={styles.menzaText}
+          data={[
+            { key: "MEDICINA" },
+            { key: "RADNO VRIJEME:" },
+            { key: "PON-PET: 7:30-18:00" },
+            { key: "SUB i NED: zatvoreno" }
+          ]}
+          renderItem={({ item }) => <Text>{item.key}</Text>}
+        />
+      </View>
+      <View style={styles.menzaPosition}>
         <Image source={require("./../assets/images/FER-menza.png")} />
 
         <FlatList
@@ -20,7 +34,35 @@ export default function MenzaScreen() {
           data={[
             { key: "FER" },
             { key: "RADNO VRIJEME:" },
-            { key: "PON-PET: 10-16h" },
+            { key: "PON-PET: 10:00-16:00" },
+            { key: "SUB i NED: zatvoreno" }
+          ]}
+          renderItem={({ item }) => <Text>{item.key}</Text>}
+        />
+      </View>
+      <View style={styles.menzaPosition}>
+        <Image source={require("./../assets/images/FSB-menza.jpg")} />
+
+        <FlatList
+          style={styles.menzaText}
+          data={[
+            { key: "FSB" },
+            { key: "RADNO VRIJEME:" },
+            { key: "PON-PET: 8:00-16:00" },
+            { key: "SUB i NED: zatvoreno" }
+          ]}
+          renderItem={({ item }) => <Text>{item.key}</Text>}
+        />
+      </View>
+      <View style={styles.menzaPosition}>
+        <Image source={require("./../assets/images/FFZG-menza.jpg")} />
+
+        <FlatList
+          style={styles.menzaText}
+          data={[
+            { key: "FFZG" },
+            { key: "RADNO VRIJEME:" },
+            { key: "PON-PET: 8:00-10:00, 11:00-15:30" },
             { key: "SUB i NED: zatvoreno" }
           ]}
           renderItem={({ item }) => <Text>{item.key}</Text>}
@@ -34,13 +76,55 @@ export default function MenzaScreen() {
           data={[
             { key: "SC" },
             { key: "RADNO VRIJEME:" },
-            { key: "PON-PET: 10-16h" },
+            { key: "PON-PET: 10:00-16:00" },
             { key: "SUB i NED: zatvoreno" }
           ]}
           renderItem={({ item }) => <Text>{item.key}</Text>}
         />
       </View>
       <View style={styles.menzaPosition}>
+        <Image source={require("./../assets/images/Građevina-menza.png")} />
+
+        <FlatList
+          style={styles.menzaText}
+          data={[
+            { key: "GRAĐEVINA" },
+            { key: "RADNO VRIJEME:" },
+            { key: "PON-PET: 10:00-16:00" },
+            { key: "SUB i NED: zatvoreno" }
+          ]}
+          renderItem={({ item }) => <Text>{item.key}</Text>}
+        />
+      </View>
+      <View style={styles.menzaPosition}>
+        <Image source={require("./../assets/images/Cvjetno-menza.jpg")} />
+
+        <FlatList
+          style={styles.menzaText}
+          data={[
+            { key: "CVJETNO" },
+            { key: "RADNO VRIJEME:" },
+            { key: "PON-PET: 10:00-16:00" },
+            { key: "SUB i NED: zatvoreno" }
+          ]}
+          renderItem={({ item }) => <Text>{item.key}</Text>}
+        />
+      </View>
+      <View style={styles.menzaPosition}>
+        <Image source={require("./../assets/images/Ekonomija-menza.jpg")} />
+
+        <FlatList
+          style={styles.menzaText}
+          data={[
+            { key: "EKONOMIJA" },
+            { key: "RADNO VRIJEME:" },
+            { key: "PON-PET: 11:00-15:00" },
+            { key: "SUB i NED: zatvoreno" }
+          ]}
+          renderItem={({ item }) => <Text>{item.key}</Text>}
+        />
+      </View>
+      <View style={styles.menzaPositionLast}>
         <Image source={require("./../assets/images/StjepanRadic-menza.jpg")} />
 
         <FlatList
@@ -48,7 +132,7 @@ export default function MenzaScreen() {
           data={[
             { key: "SAVA" },
             { key: "RADNO VRIJEME:" },
-            { key: "PON-PET: 10-16h" },
+            { key: "PON-PET: 10:00-16:00" },
             { key: "SUB i NED: zatvoreno" }
           ]}
           renderItem={({ item }) => <Text>{item.key}</Text>}
@@ -73,6 +157,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 15,
     alignSelf: "flex-start"
+  },
+  menzaPositionLast: {
+    flex: 1,
+    flexDirection: "row",
+    padding: 15,
+    alignSelf: "flex-start",
+    marginBottom: 15
   },
   menzaText: {
     paddingLeft: 15
