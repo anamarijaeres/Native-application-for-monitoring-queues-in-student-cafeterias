@@ -35,7 +35,10 @@ var database = firebase.database();
 
 var menza_data = [];
 export default function HomeScreen() {
+  //Gumb za prikazati screen sa Start i End gumbom
   const [buttonPressed, setButtonPressed] = useState(false);
+
+  //Gumb Start
   const [buttonZaUlazak, setButtonZaUlazak] = useState(false);
 
   //Ove 3 vrijednosti postavi na null kad se stisne End
@@ -163,16 +166,16 @@ export default function HomeScreen() {
           <View style={styles.welcomeContainer}>
             <Image
               style={styles.welcomeImage}
-              source={require("../assets/images/LAD.jpg")}
+              source={require("../assets/images/LAD_natpis.png")}
             />
           </View>
 
           <View style={styles.getStartedContainer}>
             {/* <DevelopmentModeNotice /> */}
 
-            <Text style={styles.getStartedText}>
+            {/* <Text style={styles.getStartedText}>
               OVO JE NAJBOLJI PROJEKT ...IKAD!
-            </Text>
+            </Text> */}
 
             {/* <View
               style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
@@ -270,7 +273,7 @@ export default function HomeScreen() {
           <View style={styles.welcomeContainer}>
             <Image
               style={styles.welcomeImage}
-              source={require("../assets/images/LAD.jpg")}
+              source={require("../assets/images/LAD_natpis.png")}
             />
           </View>
 

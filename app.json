@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "Mobile App",
-    "slug": "mobile-app",
+    "name": "LAD projekt",
+    "slug": "lad-mobile-app",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/LAD_natpis.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/LAD_natpis.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#f2ddf8"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
