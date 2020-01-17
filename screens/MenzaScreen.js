@@ -76,7 +76,8 @@ export default function MenzaScreen() {
           data={[
             { key: "SC" },
             { key: "RADNO VRIJEME:" },
-            { key: "PON-PET: 10:00-16:00" },
+            { key: "PON-ČET: 10:30-16:00, 17:30-20:30" },
+            { key: "PET: 10:30-16:00" },
             { key: "SUB i NED: zatvoreno" }
           ]}
           renderItem={({ item }) => <Text>{item.key}</Text>}
@@ -90,7 +91,7 @@ export default function MenzaScreen() {
           data={[
             { key: "GRAĐEVINA" },
             { key: "RADNO VRIJEME:" },
-            { key: "PON-PET: 10:00-16:00" },
+            { key: "PON-PET: 9:00-17:00" },
             { key: "SUB i NED: zatvoreno" }
           ]}
           renderItem={({ item }) => <Text>{item.key}</Text>}
@@ -104,8 +105,8 @@ export default function MenzaScreen() {
           data={[
             { key: "CVJETNO" },
             { key: "RADNO VRIJEME:" },
-            { key: "PON-PET: 10:00-16:00" },
-            { key: "SUB i NED: zatvoreno" }
+            { key: "PON: 16:00-21:00" },
+            { key: "UTO-NED: 7:00-10:00, 11:00-16:00, 17:30-21:00" }
           ]}
           renderItem={({ item }) => <Text>{item.key}</Text>}
         />
@@ -132,8 +133,7 @@ export default function MenzaScreen() {
           data={[
             { key: "SAVA" },
             { key: "RADNO VRIJEME:" },
-            { key: "PON-PET: 10:00-16:00" },
-            { key: "SUB i NED: zatvoreno" }
+            { key: "PON-NED: 7:00-9:30, 11:30-16:30, 17:30-21:30" }
           ]}
           renderItem={({ item }) => <Text>{item.key}</Text>}
         />
