@@ -8,7 +8,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Button
+  Button,
+  Alert
 } from "react-native";
 
 import { MonoText } from "../components/StyledText";
@@ -41,30 +42,70 @@ export default function HomeScreen() {
   //Gumb Start
   const [buttonZaUlazak, setButtonZaUlazak] = useState(false);
 
+  //Vrati se u false ako se pokušava unijeti upis van radnog vremena menze
+  const [menzaRadi, setMenzaRadi] = useState(true);
+
   //Ove 3 vrijednosti postavi na null kad se stisne End
   const [imeMenze, setImeMenze] = useState(null);
   const [idMenze, setIdMenze] = useState(null);
   const [startTime, setStartTime] = useState(null);
 
-  // for (var i = 0; i < 8; i++) {
-  //   firebase
-  //     .database()
-  //     .ref("menze/" + i)
-  //     .once("value")
-  //     .then(function(snapshot) {
-  //       menza_data[i] = snapshot.val();
-  //       console.log(menza_data[i].name);
-  //     });
-  // }
-
   function gumbPritisnut(ime, zaPostaviti, idMenze) {
-    setIdMenze(idMenze);
-    setImeMenze(ime);
-    setButtonPressed(zaPostaviti);
+    firebase
+      .database()
+      .ref("menze/" + idMenze)
+      .once("value")
+      .then(function(snapshot) {
+        var data = snapshot.val();
+
+        //Indeksi: 0-dow, 1-sati, 2-minute
+        var mojeVrijeme = [
+          new Date().getDay(),
+          new Date().getHours(),
+          new Date().getMinutes()
+        ];
+
+        //Provjere radi li menza
+
+        var radniDani = data.working_days.split("-");
+        //Razdvojim dijelove radnog vremena
+        var radniSati = data.working_hours.split(";");
+
+        if (radniDani[0] > mojeVrijeme[0] || radniDani[1] < mojeVrijeme[0]) {
+          setMenzaRadi(false);
+        }
+
+        radniSati.forEach(element => {
+          //Razdvojim početak i kraj jednog dijela radnog vremena, npr. element = [7:30, 10:30]
+          element = element.split("-");
+          //Razdvojim sate od minuta
+          var pocRadVrem = element[0].split(":");
+          var krajRadVrem = element[1].split(":");
+
+          if (
+            pocRadVrem[0] > mojeVrijeme[1] ||
+            (pocRadVrem[0] === mojeVrijeme[1] &&
+              pocRadVrem[1] > mojeVrijeme[2]) ||
+            krajRadVrem[0] < mojeVrijeme[1] ||
+            (krajRadVrem[0] === mojeVrijeme[1] &&
+              krajRadVrem[1] < mojeVrijeme[2])
+          ) {
+            setMenzaRadi(false);
+          }
+        });
+
+        if (menzaRadi) {
+          setIdMenze(idMenze);
+          setImeMenze(ime);
+          setButtonPressed(zaPostaviti);
+        } else {
+          Alert.alert("Menza " + ime + " trenutno ne radi. Unos nije moguć!");
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   function ugasiGumb(zaPostaviti) {
-    console.log("Sad smo u " + imeMenze + " menzi!");
     setButtonZaUlazak(false);
     setButtonPressed(zaPostaviti);
   }
@@ -110,28 +151,28 @@ export default function HomeScreen() {
     console.log(newId);
   }
 
-  function ImenaMenzi() {
-    var output = [];
-    for (var i = 1; i < 9; i++) {
-      firebase
-        .database()
-        .ref("menze/" + i)
-        .once("value")
-        .then(function(snapshot) {
-          menza_data = snapshot.val();
-          var tempItem = (
-            <View>
-              <Button
-                title={menza_data.name}
-                onPress={() => gumbPritisnut(menza_data.name, true)}
-              />
-            </View>
-          );
-          output.push(tempItem);
-        });
-    }
-    return <View>{output}</View>;
-  }
+  // function ImenaMenzi() {
+  //   var output = [];
+  //   for (var i = 1; i < 9; i++) {
+  //     firebase
+  //       .database()
+  //       .ref("menze/" + i)
+  //       .once("value")
+  //       .then(function(snapshot) {
+  //         menza_data = snapshot.val();
+  //         var tempItem = (
+  //           <View>
+  //             <Button
+  //               title={menza_data.name}
+  //               onPress={() => gumbPritisnut(menza_data.name, true)}
+  //             />
+  //           </View>
+  //         );
+  //         output.push(tempItem);
+  //       });
+  //   }
+  //   return <View>{output}</View>;
+  // }
 
   // function imenaMenzi() {
   //   var output = [];
@@ -190,6 +231,13 @@ export default function HomeScreen() {
                 Help, it didn’t automatically reload!
               </Text>
             </TouchableOpacity> */}
+
+            <View style={styles.collegeButtons}>
+              <Button
+                title="MEDICINA"
+                onPress={() => gumbPritisnut("MEDICINA", true, 0)}
+              />
+            </View>
 
             <View style={styles.collegeButtons}>
               <Button
@@ -306,40 +354,40 @@ HomeScreen.navigationOptions = {
   header: null
 };
 
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
+// function DevelopmentModeNotice() {
+//   if (__DEV__) {
+//     const learnMoreButton = (
+//       <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
+//         Learn more
+//       </Text>
+//     );
 
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
+//     return (
+//       <Text style={styles.developmentModeText}>
+//         Development mode is enabled: your app will be slower but you can use
+//         useful development tools. {learnMoreButton}
+//       </Text>
+//     );
+//   } else {
+//     return (
+//       <Text style={styles.developmentModeText}>
+//         You are not in development mode: your app will run at full speed.
+//       </Text>
+//     );
+//   }
+// }
 
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    "https://docs.expo.io/versions/latest/workflow/development-mode/"
-  );
-}
+// function handleLearnMorePress() {
+//   WebBrowser.openBrowserAsync(
+//     "https://docs.expo.io/versions/latest/workflow/development-mode/"
+//   );
+// }
 
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    "https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes"
-  );
-}
+// function handleHelpPress() {
+//   WebBrowser.openBrowserAsync(
+//     "https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes"
+//   );
+// }
 
 const styles = StyleSheet.create({
   container: {
