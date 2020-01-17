@@ -42,8 +42,8 @@ export default function HomeScreen() {
   //Gumb Start
   const [buttonZaUlazak, setButtonZaUlazak] = useState(false);
 
-  //Vrati se u false ako se pokušava unijeti upis van radnog vremena menze
-  const [menzaRadi, setMenzaRadi] = useState(true);
+  //Provjera jel se pokušava unijeti zapis van radnog vremena
+  const [menzaRadi, setMenzaRadi] = useState(false);
 
   //Ove 3 vrijednosti postavi na null kad se stisne End
   const [imeMenze, setImeMenze] = useState(null);
@@ -71,28 +71,26 @@ export default function HomeScreen() {
         //Razdvojim dijelove radnog vremena
         var radniSati = data.working_hours.split(";");
 
-        if (radniDani[0] > mojeVrijeme[0] || radniDani[1] < mojeVrijeme[0]) {
-          setMenzaRadi(false);
+        if (radniDani[0] <= mojeVrijeme[0] && radniDani[1] >= mojeVrijeme[0]) {
+          radniSati.forEach(element => {
+            //Razdvojim početak i kraj jednog dijela radnog vremena, npr. element = [7:30, 10:30]
+            element = element.split("-");
+            //Razdvojim sate i minute
+            var pocRadVrem = element[0].split(":");
+            var krajRadVrem = element[1].split(":");
+
+            if (
+              (pocRadVrem[0] < mojeVrijeme[1] ||
+                (pocRadVrem[0] === mojeVrijeme[1] &&
+                  pocRadVrem[1] < mojeVrijeme[2])) &&
+              (krajRadVrem[0] > mojeVrijeme[1] ||
+                (krajRadVrem[0] === mojeVrijeme[1] &&
+                  krajRadVrem[1] > mojeVrijeme[2]))
+            ) {
+              setMenzaRadi(true);
+            }
+          });
         }
-
-        radniSati.forEach(element => {
-          //Razdvojim početak i kraj jednog dijela radnog vremena, npr. element = [7:30, 10:30]
-          element = element.split("-");
-          //Razdvojim sate od minuta
-          var pocRadVrem = element[0].split(":");
-          var krajRadVrem = element[1].split(":");
-
-          if (
-            pocRadVrem[0] > mojeVrijeme[1] ||
-            (pocRadVrem[0] === mojeVrijeme[1] &&
-              pocRadVrem[1] > mojeVrijeme[2]) ||
-            krajRadVrem[0] < mojeVrijeme[1] ||
-            (krajRadVrem[0] === mojeVrijeme[1] &&
-              krajRadVrem[1] < mojeVrijeme[2])
-          ) {
-            setMenzaRadi(false);
-          }
-        });
 
         if (menzaRadi) {
           setIdMenze(idMenze);
@@ -148,7 +146,7 @@ export default function HomeScreen() {
         setButtonPressed(zaPostaviti);
       });
 
-    console.log(newId);
+    //console.log(newId);
   }
 
   // function ImenaMenzi() {
@@ -214,10 +212,6 @@ export default function HomeScreen() {
           <View style={styles.getStartedContainer}>
             {/* <DevelopmentModeNotice /> */}
 
-            {/* <Text style={styles.getStartedText}>
-              OVO JE NAJBOLJI PROJEKT ...IKAD!
-            </Text> */}
-
             {/* <View
               style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
             >
@@ -226,9 +220,12 @@ export default function HomeScreen() {
           </View>
 
           <View style={styles.helpContainer}>
-            {/* <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+            {/* <TouchableOpacity
+              onPress={() => setModalVisible(!modalVisible)}
+              style={styles.helpLink}
+            >
               <Text style={styles.helpLinkText}>
-                Help, it didn’t automatically reload!
+                Kratke upute za korištenje
               </Text>
             </TouchableOpacity> */}
 
