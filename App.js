@@ -39,6 +39,7 @@ export default function App(props) {
       />
     );
   } else {
+    console.disableYellowBox = true;
     return (
       <View style={styles.container}>
         {Platform.OS === "ios" && <StatusBar barStyle="default" />}
