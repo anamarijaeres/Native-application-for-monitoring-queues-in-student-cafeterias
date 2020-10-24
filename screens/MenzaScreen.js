@@ -7,7 +7,6 @@ import {
   Text,
   FlatList
 } from "react-native";
-//import { ExpoLinksView } from "@expo/samples";
 
 export default function MenzaScreen() {
   return (
